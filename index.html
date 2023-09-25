@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>This is a giph generation site using the Giphy API</h1>
+    <form action="" id="imageType">
+        <label for="image_type">Search Giph</label>
+        <input type="text" id="image_type" name="image_type">
+        <input type="submit" value="Submit">
+    </form>
+    <img src="#" />
+    <script>
+      const img = document.querySelector("img");
+      const getImage = (giph_type) => {
+        fetch(
+          `https://api.giphy.com/v1/gifs/translate?api_key=MCc0q2XG0MgCMmjlCbPQrqYs1mmC4ZSu&s=${giph_type}`,
+          { mode: "cors" }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            img.src = response.data.images.original.url;
+          });
+      }
+      
+      let image_type = document.getElementById("imageType");
+      image_type.addEventListener("submit", (e) =>{
+        e.preventDefault();
+        let imaging = document.getElementById("image_type").value;
+        getImage(imaging);
+      })
+
+      ;
+
+      getImage();
+    </script>
+  </body>
+</html>
